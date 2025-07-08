@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Russia Market</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">BR Market</h1>
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Поиск товаров, услуг...">
+                    <button class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="M21 21l-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <button class="nav-btn active" data-section="home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                </svg>
+                <span>Главная</span>
+            </button>
+            <button class="nav-btn" data-section="categories">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <rect x="3" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="3" width="7" height="7"></rect>
+                    <rect x="14" y="14" width="7" height="7"></rect>
+                    <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Категории</span>
+            </button>
+            <button class="nav-btn" data-section="create">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="16"></line>
+                    <line x1="8" y1="12" x2="16" y2="12"></line>
+                </svg>
+                <span>Добавить</span>
+            </button>
+            <button class="nav-btn" data-section="profile">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Профиль</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Home Section -->
+            <section class="section active" id="home">
+                <div class="categories-quick">
+                    <h2>Популярные категории</h2>
+                    <div class="categories-grid">
+                        <div class="category-card" data-category="weapons">
+                            <div class="category-icon">🔫</div>
+                            <span>Оружие</span>
+                        </div>
+                        <div class="category-card" data-category="vehicles">
+                            <div class="category-icon">🚗</div>
+                            <span>Транспорт</span>
+                        </div>
+                        <div class="category-card" data-category="items">
+                            <div class="category-icon">📦</div>
+                            <span>Предметы</span>
+                        </div>
+                        <div class="category-card" data-category="services">
+                            <div class="category-icon">🛠️</div>
+                            <span>Услуги</span>
+                        </div>
+                        <div class="category-card" data-category="accounts">
+                            <div class="category-icon">👤</div>
+                            <span>Аккаунты</span>
+                        </div>
+                        <div class="category-card" data-category="money">
+                            <div class="category-icon">💰</div>
+                            <span>Валюта</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filters">
+                    <select class="filter-select" id="serverFilter">
+                        <option value="">Все сервера</option>
+                        <option value="1">Сервер 1</option>
+                        <option value="2">Сервер 2</option>
+                        <option value="3">Сервер 3</option>
+                    </select>
+                    <select class="filter-select" id="sortFilter">
+                        <option value="newest">Новые</option>
+                        <option value="price-asc">Цена по возрастанию</option>
+                        <option value="price-desc">Цена по убыванию</option>
+                        <option value="popular">Популярные</option>
+                    </select>
+                </div>
+
+                <div class="listings" id="listings">
+                    <!-- Listings will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="section" id="categories">
+                <h2>Все категории</h2>
+                <div class="categories-list">
+                    <!-- Categories will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Create Section -->
+            <section class="section" id="create">
+                <h2>Создать объявление</h2>
+                <form class="create-form" id="createForm">
+                    <div class="form-group">
+                        <label for="title">Название</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Категория</label>
+                        <select id="category" name="category" required>
+                            <option value="">Выберите категорию</option>
+                            <option value="weapons">Оружие</option>
+                            <option value="vehicles">Транспорт</option>
+                            <option value="items">Предметы</option>
+                            <option value="services">Услуги</option>
+                            <option value="accounts">Аккаунты</option>
+                            <option value="money">Валюта</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="server">Сервер</label>
+                        <select id="server" name="server" required>
+                            <option value="">Выберите сервер</option>
+                            <option value="1">Сервер 1</option>
+                            <option value="2">Сервер 2</option>
+                            <option value="3">Сервер 3</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Цена (₽)</label>
+                        <input type="number" id="price" name="price" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Описание</label>
+                        <textarea id="description" name="description" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photos">Фотографии (URL)</label>
+                        <input type="url" id="photos" name="photos" placeholder="https://example.com/image.jpg">
+                    </div>
+
+                    <button type="submit" class="submit-btn">Создать объявление</button>
+                </form>
+            </section>
+
+            <!-- Profile Section -->
+            <section class="section" id="profile">
+                <div class="profile-header">
+                    <div class="profile-avatar"></div>
+                    <div class="profile-info">
+                        <h3 class="profile-name">Загрузка...</h3>
+                        <p class="profile-username">@загрузка</p>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Объявлений</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">0</span>
+                        <span class="stat-label">Сделок</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">5.0</span>
+                        <span class="stat-label">Рейтинг</span>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="action-btn" id="myListings">Мои объявления</button>
+                    <button class="action-btn" id="settings">Настройки</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal for listing details -->
+        <div class="modal" id="listingModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="listingDetails">
+                    <!-- Listing details will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 

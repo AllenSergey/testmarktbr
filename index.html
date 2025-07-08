@@ -3,122 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Black Russia Market</title>
+    <title>Black Russia Market - Маркетплейс #1</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="app">
+        <!-- Preloader -->
+        <div class="preloader" id="preloader">
+            <div class="preloader-content">
+                <div class="preloader-logo">BR</div>
+                <div class="preloader-spinner"></div>
+                <div class="preloader-text">Загрузка Black Russia Market...</div>
+            </div>
+        </div>
+
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <h1 class="logo">BR Market</h1>
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Поиск товаров, услуг...">
-                    <button class="search-btn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <div class="header-left">
+                    <h1 class="logo">
+                        <span class="logo-icon">🏪</span>
+                        <span class="logo-text">BR Market</span>
+                        <span class="logo-badge">BETA</span>
+                    </h1>
+                </div>
+                <div class="header-center">
+                    <div class="search-container">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                             <circle cx="11" cy="11" r="8"></circle>
                             <path d="M21 21l-4.35-4.35"></path>
                         </svg>
+                        <input type="text" class="search-input" placeholder="Поиск по 1000+ товарам...">
+                        <button class="search-clear" id="searchClear">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn notification-btn" id="notificationBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    <button class="header-btn favorites-btn" id="favoritesBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        <span class="favorites-count">0</span>
                     </button>
                 </div>
             </div>
         </header>
 
+        <!-- Server Status Bar -->
+        <div class="server-status-bar">
+            <div class="server-status-content">
+                <div class="server-status-item">
+                    <div class="server-indicator online"></div>
+                    <span>Сервер 1: 2.4K игроков</span>
+                </div>
+                <div class="server-status-item">
+                    <div class="server-indicator online"></div>
+                    <span>Сервер 2: 1.8K игроков</span>
+                </div>
+                <div class="server-status-item">
+                    <div class="server-indicator maintenance"></div>
+                    <span>Сервер 3: обслуживание</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Navigation -->
         <nav class="nav">
-            <button class="nav-btn active" data-section="home">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9,22 9,12 15,12 15,22"></polyline>
-                </svg>
-                <span>Главная</span>
-            </button>
-            <button class="nav-btn" data-section="categories">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <rect x="3" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="3" width="7" height="7"></rect>
-                    <rect x="14" y="14" width="7" height="7"></rect>
-                    <rect x="3" y="14" width="7" height="7"></rect>
-                </svg>
-                <span>Категории</span>
-            </button>
-            <button class="nav-btn" data-section="create">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                </svg>
-                <span>Добавить</span>
-            </button>
-            <button class="nav-btn" data-section="profile">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                <span>Профиль</span>
-            </button>
+            <div class="nav-container">
+                <button class="nav-btn active" data-section="home">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Главная</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-section="categories">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Категории</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-section="create">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="16"></line>
+                            <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Добавить</span>
+                    <div class="nav-indicator"></div>
+                </button>
+                <button class="nav-btn" data-section="deals">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            <polyline points="3.27,6.96 12,12.01 20.73,6.96"></polyline>
+                            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Сделки</span>
+                    <div class="nav-indicator"></div>
+                    <span class="nav-badge">2</span>
+                </button>
+                <button class="nav-btn" data-section="profile">
+                    <div class="nav-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <span class="nav-text">Профиль</span>
+                    <div class="nav-indicator"></div>
+                </button>
+            </div>
         </nav>
 
         <!-- Main Content -->
         <main class="main">
             <!-- Home Section -->
             <section class="section active" id="home">
-                <div class="categories-quick">
-                    <h2>Популярные категории</h2>
-                    <div class="categories-grid">
-                        <div class="category-card" data-category="weapons">
-                            <div class="category-icon">🔫</div>
-                            <span>Оружие</span>
+                <!-- Market Stats -->
+                <div class="market-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-number">1,247</div>
+                            <div class="stat-label">Активных объявлений</div>
                         </div>
-                        <div class="category-card" data-category="vehicles">
-                            <div class="category-icon">🚗</div>
-                            <span>Транспорт</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-number">8,432</div>
+                            <div class="stat-label">Пользователей</div>
                         </div>
-                        <div class="category-card" data-category="items">
-                            <div class="category-icon">📦</div>
-                            <span>Предметы</span>
-                        </div>
-                        <div class="category-card" data-category="services">
-                            <div class="category-icon">🛠️</div>
-                            <span>Услуги</span>
-                        </div>
-                        <div class="category-card" data-category="accounts">
-                            <div class="category-icon">👤</div>
-                            <span>Аккаунты</span>
-                        </div>
-                        <div class="category-card" data-category="money">
-                            <div class="category-icon">💰</div>
-                            <span>Валюта</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🔒</div>
+                        <div class="stat-content">
+                            <div class="stat-number">98.7%</div>
+                            <div class="stat-label">Безопасных сделок</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="filters">
-                    <select class="filter-select" id="serverFilter">
-                        <option value="">Все сервера</option>
-                        <option value="1">Сервер 1</option>
-                        <option value="2">Сервер 2</option>
-                        <option value="3">Сервер 3</option>
-                    </select>
-                    <select class="filter-select" id="sortFilter">
-                        <option value="newest">Новые</option>
-                        <option value="price-asc">Цена по возрастанию</option>
-                        <option value="price-desc">Цена по убыванию</option>
-                        <option value="popular">Популярные</option>
-                    </select>
+                <!-- Quick Categories -->
+                <div class="categories-quick">
+                    <div class="section-header">
+                        <h2>Популярные категории</h2>
+                        <button class="view-all-btn" onclick="showAllCategories()">Все категории</button>
+                    </div>
+                    <div class="categories-grid">
+                        <div class="category-card premium" data-category="weapons">
+                            <div class="category-icon">🔫</div>
+                            <div class="category-content">
+                                <span class="category-name">Оружие</span>
+                                <span class="category-count">156 товаров</span>
+                            </div>
+                            <div class="category-trend up">↗</div>
+                        </div>
+                        <div class="category-card" data-category="vehicles">
+                            <div class="category-icon">🚗</div>
+                            <div class="category-content">
+                                <span class="category-name">Транспорт</span>
+                                <span class="category-count">284 товара</span>
+                            </div>
+                            <div class="category-trend up">↗</div>
+                        </div>
+                        <div class="category-card" data-category="accounts">
+                            <div class="category-icon">👤</div>
+                            <div class="category-content">
+                                <span class="category-name">Аккаунты</span>
+                                <span class="category-count">89 товаров</span>
+                            </div>
+                            <div class="category-trend down">↘</div>
+                        </div>
+                        <div class="category-card" data-category="money">
+                            <div class="category-icon">💰</div>
+                            <div class="category-content">
+                                <span class="category-name">Валюта BR$</span>
+                                <span class="category-count">234 товара</span>
+                            </div>
+                            <div class="category-trend up">↗</div>
+                        </div>
+                        <div class="category-card" data-category="items">
+                            <div class="category-icon">📦</div>
+                            <div class="category-content">
+                                <span class="category-name">Предметы</span>
+                                <span class="category-count">378 товаров</span>
+                            </div>
+                            <div class="category-trend stable">→</div>
+                        </div>
+                        <div class="category-card" data-category="services">
+                            <div class="category-icon">🛠️</div>
+                            <div class="category-content">
+                                <span class="category-name">Услуги</span>
+                                <span class="category-count">127 товаров</span>
+                            </div>
+                            <div class="category-trend up">↗</div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="listings" id="listings">
-                    <!-- Listings will be populated by JavaScript -->
+                <!-- Advanced Filters -->
+                <div class="filters-section">
+                    <div class="filters-header">
+                        <h3>Фильтры</h3>
+                        <button class="filters-reset" id="resetFilters">Сбросить</button>
+                    </div>
+                    <div class="filters-grid">
+                        <div class="filter-group">
+                            <label>Сервер</label>
+                            <select class="filter-select" id="serverFilter">
+                                <option value="">Все сервера</option>
+                                <option value="1">🟢 Сервер 1 (2.4K)</option>
+                                <option value="2">🟢 Сервер 2 (1.8K)</option>
+                                <option value="3">🟡 Сервер 3 (обслуживание)</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Цена</label>
+                            <div class="price-range">
+                                <input type="number" class="price-input" id="minPrice" placeholder="От">
+                                <span class="price-separator">—</span>
+                                <input type="number" class="price-input" id="maxPrice" placeholder="До">
+                            </div>
+                        </div>
+                        <div class="filter-group">
+                            <label>Сортировка</label>
+                            <select class="filter-select" id="sortFilter">
+                                <option value="newest">🆕 Новые</option>
+                                <option value="price-asc">💰 Цена ↑</option>
+                                <option value="price-desc">💰 Цена ↓</option>
+                                <option value="popular">🔥 Популярные</option>
+                                <option value="rating">⭐ Рейтинг</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Продавец</label>
+                            <select class="filter-select" id="sellerFilter">
+                                <option value="">Все продавцы</option>
+                                <option value="verified">✅ Проверенные</option>
+                                <option value="premium">👑 Premium</option>
+                                <option value="new">🆕 Новые</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listings Section -->
+                <div class="listings-section">
+                    <div class="section-header">
+                        <h3>Объявления</h3>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="14" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                </svg>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="listings" id="listings">
+                        <!-- Listings will be populated by JavaScript -->
+                    </div>
                 </div>
             </section>
 
             <!-- Categories Section -->
             <section class="section" id="categories">
-                <h2>Все категории</h2>
+                <div class="section-header">
+                    <h2>Все категории</h2>
+                    <div class="categories-search">
+                        <input type="text" class="search-input" placeholder="Поиск категорий...">
+                    </div>
+                </div>
                 <div class="categories-list">
                     <!-- Categories will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Deals Section -->
+            <section class="section" id="deals">
+                <div class="section-header">
+                    <h2>Мои сделки</h2>
+                    <div class="deals-tabs">
+                        <button class="tab-btn active" data-tab="active">Активные</button>
+                        <button class="tab-btn" data-tab="completed">Завершенные</button>
+                        <button class="tab-btn" data-tab="disputes">Споры</button>
+                    </div>
+                </div>
+
+                <div class="deals-content">
+                    <!-- Active Deals -->
+                    <div class="deals-tab active" id="active-deals">
+                        <div class="deals-list">
+                            <div class="deal-card">
+                                <div class="deal-header">
+                                    <div class="deal-type buying">Покупка</div>
+                                    <div class="deal-status in-progress">В процессе</div>
+                                </div>
+                                <div class="deal-content">
+                                    <div class="deal-item">
+                                        <div class="item-icon">🔫</div>
+                                        <div class="item-info">
+                                            <div class="item-name">AK-47 Калашников</div>
+                                            <div class="item-price">2,500 ₽</div>
+                                        </div>
+                                    </div>
+                                    <div class="deal-parties">
+                                        <div class="party seller">
+                                            <div class="party-avatar">P</div>
+                                            <div class="party-info">
+                                                <div class="party-name">Player123</div>
+                                                <div class="party-rating">⭐ 4.8</div>
+                                            </div>
+                                        </div>
+                                        <div class="deal-arrow">→</div>
+                                        <div class="party buyer">
+                                            <div class="party-avatar">Я</div>
+                                            <div class="party-info">
+                                                <div class="party-name">Вы</div>
+                                                <div class="party-rating">⭐ 5.0</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="deal-actions">
+                                    <button class="deal-btn chat-btn">💬 Чат</button>
+                                    <button class="deal-btn confirm-btn">✅ Подтвердить</button>
+                                    <button class="deal-btn dispute-btn">⚠️ Спор</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Completed Deals -->
+                    <div class="deals-tab" id="completed-deals">
+                        <div class="deals-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">47</div>
+                                <div class="stat-label">Успешных сделок</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">5.0</div>
+                                <div class="stat-label">Средний рейтинг</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">0</div>
+                                <div class="stat-label">Споров</div>
+                            </div>
+                        </div>
+                        <div class="deals-list">
+                            <!-- Completed deals will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Disputes -->
+                    <div class="deals-tab" id="disputes-deals">
+                        <div class="empty-state">
+                            <div class="empty-icon">🎉</div>
+                            <div class="empty-text">У вас нет активных споров</div>
+                            <div class="empty-subtext">Это отличный показатель!</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -208,11 +493,148 @@
         <!-- Modal for listing details -->
         <div class="modal" id="listingModal">
             <div class="modal-content">
-                <span class="close">&times;</span>
-                <div id="listingDetails">
+                <div class="modal-header">
+                    <h3>Детали объявления</h3>
+                    <button class="modal-close" onclick="closeModal('listingModal')">&times;</button>
+                </div>
+                <div class="modal-body" id="listingDetails">
                     <!-- Listing details will be populated by JavaScript -->
                 </div>
             </div>
+        </div>
+
+        <!-- Chat Modal -->
+        <div class="modal" id="chatModal">
+            <div class="modal-content chat-modal">
+                <div class="modal-header">
+                    <div class="chat-user-info">
+                        <div class="chat-avatar">P</div>
+                        <div class="chat-user-details">
+                            <div class="chat-user-name">Player123</div>
+                            <div class="chat-user-status">⭐ 4.8 • онлайн</div>
+                        </div>
+                    </div>
+                    <button class="modal-close" onclick="closeModal('chatModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message other">
+                            <div class="message-content">
+                                Привет! Интересует AK-47?
+                            </div>
+                            <div class="message-time">14:32</div>
+                        </div>
+                        <div class="message own">
+                            <div class="message-content">
+                                Да, можете скинуть скриншот характеристик?
+                            </div>
+                            <div class="message-time">14:35</div>
+                        </div>
+                        <div class="message other">
+                            <div class="message-content">
+                                Конечно, сейчас
+                            </div>
+                            <div class="message-time">14:36</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" placeholder="Введите сообщение...">
+                        <button class="chat-send-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Modal -->
+        <div class="modal" id="notificationsModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Уведомления</h3>
+                    <button class="modal-close" onclick="closeModal('notificationsModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="notifications-list">
+                        <div class="notification-item unread">
+                            <div class="notification-icon">💰</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Новое предложение</div>
+                                <div class="notification-text">Player456 предложил 2,800₽ за ваш AK-47</div>
+                                <div class="notification-time">5 минут назад</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon">✅</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Сделка завершена</div>
+                                <div class="notification-text">Вы успешно продали BMW M5 F90</div>
+                                <div class="notification-time">1 час назад</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon">⭐</div>
+                            <div class="notification-content">
+                                <div class="notification-title">Новый отзыв</div>
+                                <div class="notification-text">PlayerXYZ оставил отзыв: "Отличный продавец!"</div>
+                                <div class="notification-time">2 часа назад</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review Modal -->
+        <div class="modal" id="reviewModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Оставить отзыв</h3>
+                    <button class="modal-close" onclick="closeModal('reviewModal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="review-form">
+                        <div class="rating-section">
+                            <label>Оценка:</label>
+                            <div class="rating-stars">
+                                <span class="star" data-rating="1">⭐</span>
+                                <span class="star" data-rating="2">⭐</span>
+                                <span class="star" data-rating="3">⭐</span>
+                                <span class="star" data-rating="4">⭐</span>
+                                <span class="star" data-rating="5">⭐</span>
+                            </div>
+                        </div>
+                        <div class="review-text-section">
+                            <label>Комментарий:</label>
+                            <textarea class="review-textarea" placeholder="Напишите ваш отзыв..."></textarea>
+                        </div>
+                        <div class="review-actions">
+                            <button class="btn-secondary" onclick="closeModal('reviewModal')">Отмена</button>
+                            <button class="btn-primary">Отправить отзыв</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Viewer Modal -->
+        <div class="modal" id="imageModal">
+            <div class="modal-content image-modal">
+                <button class="modal-close" onclick="closeModal('imageModal')">&times;</button>
+                <div class="image-container">
+                    <img id="modalImage" src="" alt="Увеличенное изображение">
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer">
+            <!-- Toasts will be dynamically added here -->
         </div>
     </div>
 
